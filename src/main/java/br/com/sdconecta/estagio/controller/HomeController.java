@@ -1,30 +1,22 @@
 package br.com.sdconecta.estagio.controller;
 
-import java.util.List;
-
+import br.com.sdconecta.estagio.repository.PedidoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import br.com.sdconecta.estagio.model.Pedido;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HomeController {
-	
-	@PersistenceContext
-	private EntityManager entityManager;
+
+    @Autowired
+    private PedidoRepository pedidoRepository;
 
     @GetMapping("/home")
-    public String home(Model model){
-
-    	Query query = entityManager.createQuery("select p from Pedido p");
-    	List<Pedido> pedidos = query.getResultList();
-    	
-        model.addAttribute("pedidos", pedidos);
-
-        return "home";
+    public ModelAndView home() {
+        ModelAndView modelAndView = new ModelAndView("home");
+        modelAndView.addObject ("pedidos", pedidoRepository.findAll() );
+        return modelAndView;
     }
 }
