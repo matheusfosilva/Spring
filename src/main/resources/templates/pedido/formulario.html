@@ -1,35 +1,35 @@
 <!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-    <title>Olá, bem vindo!</title>
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-          crossorigin="anonymous">
-</head>
+<head th:replace="~{base::head}"></head>
 <body>
+
+<div th:replace="~{base::logo}"></div>
 <div class="container">
-    <div class="jumbotron jumbotron-fluid mt-1 mb-2">
-        <div class="container">
-            <h1 class="display-4">Meus Pedidos</h1>
-        </div>
-    </div>
+    <div th:replace="~{base::top('Novo pedido')} "></div>
     <div class="card">
-        <form class="card-body" action="/pedido/novo" method="post">
+        <form th:object="${pedidoDTO}" class="card-body " action="/pedido/novo" method="post">
             <div class="form-group">
                 <label for="nomeProduto">Produto</label>
-                <input class="form-control" name="nomeProduto" placeholder="Nome do produto">
+                <input th:field="*{nomeProduto}" th:errorclass="is-invalid"  class="form-control" placeholder="Nome do produto">
                 <small>Informe qual o nome do produto</small>
+                <div th:errors="*{nomeProduto} " class="invalid-feedback" >
+                    Error name of product
+                </div>
             </div>
             <div class="form-group">
                 <label for="urlProduto">Url</label>
-                <input class="form-control" name="urlProduto" placeholder="Url do produto">
+                <input th:field="*{urlProduto}" th:errorclass="is-invalid"  class="form-control" placeholder="Url do produto">
                 <small>Procure em um site o que você deseja e cole a url aqui</small>
+                <div  th:errors="*{nomeProduto}" class="invalid-feedback">
+                    Error name of product
+                </div>
             </div>
             <div class="form-group">
                 <label for="urlImagem">Imagem</label>
-                <input class="form-control" name="urlImagem" placeholder="Url do imagem">
+                <input th:field="*{urlImagem}" th:errorclass="is-invalid" class="form-control" placeholder="Url do imagem">
                 <small>Copia a url de uma boa imagem e cole aqui para ajudar a conseguir compradores.</small>
+                <div th:errors="*{nomeProduto}" class="invalid-feedback">
+                    Error name of product
+                </div>
             </div>
             <div class="form-group">
                 <label for="descricao">Descrição</label>
