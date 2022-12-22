@@ -1,6 +1,7 @@
 package br.com.sdconecta.estagio.dto;
 
 import br.com.sdconecta.estagio.model.Pedido;
+import br.com.sdconecta.estagio.model.StatusPedido;
 import jakarta.validation.constraints.NotBlank;
 
 public class PedidoDTO {
@@ -11,7 +12,6 @@ public class PedidoDTO {
     private String urlProduto;
     @NotBlank
     private String urlImagem;
-    @NotBlank
     private String descricao;
 
     public String getNomeProduto() {
@@ -45,7 +45,6 @@ public class PedidoDTO {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
 
     public Pedido toPedido() {
         Pedido pedido = new Pedido();

@@ -3,11 +3,7 @@ package br.com.sdconecta.estagio.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "pedido")
@@ -23,6 +19,12 @@ public class Pedido {
     private String urlProduct;
     private String urlImage;
     private String description;
+    @Enumerated(EnumType.STRING)
+    private StatusPedido statusPedido;
+
+    public Pedido() {
+        this.setStatusPedido(StatusPedido.AGUARDANDO);
+    }
 
     public String getDescription() {
         return description;
@@ -70,5 +72,13 @@ public class Pedido {
 
     public void setUrlImage(String urlImage) {
         this.urlImage = urlImage;
+    }
+
+    public StatusPedido getStatusPedido() {
+        return statusPedido;
+    }
+
+    public void setStatusPedido(StatusPedido statusPedido) {
+        this.statusPedido = statusPedido;
     }
 }
