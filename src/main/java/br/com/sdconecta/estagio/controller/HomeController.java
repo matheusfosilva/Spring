@@ -15,20 +15,25 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-@RequestMapping("/home")
+@RequestMapping("/")
 public class HomeController {
 
     @Autowired
     private PedidoRepository pedidoRepository;
 
     @GetMapping()
+    public String redirectToHome(){
+        return "redirect:/home";
+    }
+
+    @GetMapping("home")
     public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView("home");
         modelAndView.addObject ("pedidos", pedidoRepository.findAll() );
         return modelAndView;
     }
-    @GetMapping("/{status}")
-    public ModelAndView porStatus(@PathVariable("status") String status) {
+    @GetMapping("home/{status}")
+    public ModelAndView byStatus(@PathVariable("status") String status) {
         ModelAndView mav = new ModelAndView("home");
         mav.addObject("pedidos", pedidoRepository.findByStatusPedido(StatusPedido.valueOf(status.toUpperCase())));
         mav.addObject("status", status);
