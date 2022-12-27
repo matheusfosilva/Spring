@@ -13,27 +13,24 @@ import org.springframework.web.servlet.ModelAndView;
 import java.security.Principal;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/home")
 public class HomeController {
 
     @Autowired
     private PedidoRepository pedidoRepository;
 
     @GetMapping()
-    public String redirectToHome(){
-        return "redirect:/home";
-    }
-
-    @GetMapping("home")
     public ModelAndView home(Principal principal) {
         ModelAndView modelAndView = new ModelAndView("home");
-        modelAndView.addObject ("pedidos", pedidoRepository.findAllByUsuario(principal.getName()) );
+        modelAndView.addObject ("pedidos", pedidoRepository.findAllByUser(principal.getName()) );
         return modelAndView;
     }
-    @GetMapping("home/{status}")
-    public ModelAndView byStatus(@PathVariable("status") String status) {
+    @GetMapping("/{status}")
+    public ModelAndView byStatus(@PathVariable("status") String status, Principal principal) {
         ModelAndView mav = new ModelAndView("home");
-        mav.addObject("pedidos", pedidoRepository.findByStatusPedido(StatusPedido.valueOf(status.toUpperCase())));
+        mav.addObject("pedidos", pedidoRepository.findAllByStatusAndUser(
+                StatusPedido.valueOf(status.toUpperCase()), principal.getName())
+        );
         mav.addObject("status", status);
         return mav;
     }

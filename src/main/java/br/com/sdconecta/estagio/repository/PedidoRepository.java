@@ -12,6 +12,11 @@ import java.util.List;
 @Repository
 public interface PedidoRepository extends JpaRepository<Pedido,Long> {
     List<Pedido> findByStatusPedido(StatusPedido statusPedido);
+
     @Query("select p from Pedido p join p.user u where u.username = :username ")
-    List<Pedido> findAllByUsuario(@Param("username") String username);
+    List<Pedido> findAllByUser(@Param("username") String username);
+
+    @Query("select p from Pedido p join p.user u where u.username = :username and p.statusPedido = :statusPedido")
+    List<Pedido> findAllByStatusAndUser(@Param("statusPedido") StatusPedido statusPedido,
+                                        @Param("username") String username);
 }
