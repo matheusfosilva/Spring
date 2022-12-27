@@ -1,7 +1,6 @@
 package br.com.sdconecta.estagio.dto;
 
 import br.com.sdconecta.estagio.model.Pedido;
-import br.com.sdconecta.estagio.model.StatusPedido;
 import jakarta.validation.constraints.NotBlank;
 
 public class PedidoDTO {

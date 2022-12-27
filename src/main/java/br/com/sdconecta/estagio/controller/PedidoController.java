@@ -2,10 +2,15 @@ package br.com.sdconecta.estagio.controller;
 
 import br.com.sdconecta.estagio.dto.PedidoDTO;
 import br.com.sdconecta.estagio.model.Pedido;
+import br.com.sdconecta.estagio.model.User;
 import br.com.sdconecta.estagio.repository.PedidoRepository;
+import br.com.sdconecta.estagio.repository.UserRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,18 +25,30 @@ public class PedidoController {
 
     @Autowired
     private PedidoRepository repository;
+    @Autowired
+    private UserRepository userRepository;
 
-    @RequestMapping(method = RequestMethod.GET, value="formulario")
-    public String form(PedidoDTO req){
+    @RequestMapping(method = RequestMethod.GET, value = "formulario")
+    public String form(PedidoDTO req) {
         return "pedido/formulario";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value="novo")
+    @RequestMapping(method = RequestMethod.POST, value = "novo")
     public String novo(@Valid PedidoDTO req, BindingResult result) {
 
-        if(result.hasErrors()){ return "pedido/formulario"; }
+        if (result.hasErrors()) {
+            return "pedido/formulario";
+        }
 
         Pedido pedido = req.toPedido();
+
+        pedido.setUser(userRepository.findByUsername(
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication()
+                        .getName()
+        ));
+
         repository.save(pedido);
 
         return "redirect:/home";

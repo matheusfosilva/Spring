@@ -3,6 +3,7 @@ package br.com.sdconecta.estagio.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import br.com.sdconecta.estagio.model.status.StatusPedido;
 import jakarta.persistence.*;
 
 @Entity
@@ -21,6 +22,16 @@ public class Pedido {
     private String description;
     @Enumerated(EnumType.STRING)
     private StatusPedido statusPedido;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Pedido() {
         this.setStatusPedido(StatusPedido.AGUARDANDO);
