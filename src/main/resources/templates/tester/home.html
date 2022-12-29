@@ -5,7 +5,7 @@
 <div class="container">
     <div th:replace="~{base::top('Mudi App')} "></div>
 
-    <div class="card mb-3" th:each="pedido: ${pedidos}">
+    <div class="card mb-3" th:each="pedido: ${pedido}">
         <th:block th:switch="${pedido.statusPedido.name()}" >
             <div th:case="'AGUARDANDO'" class="card-header alert-warning " th:text="${pedido.name}">nomedoproduto</div>
             <div th:case="'APROVADO'" class="card-header alert-success " th:text="${pedido.name}">nomedoproduto</div>
