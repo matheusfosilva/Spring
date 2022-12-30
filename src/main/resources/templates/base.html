@@ -25,17 +25,27 @@
 
 </head>
 
-<div th:fragment="logo" class="logo-container mb-3 p-3 d-flex justify-content-between ">
-  <a href="/home"  ><span class="logo text-light " >Mudi</span></a>
+<div th:fragment="logo">
 
-  <div sec:authorize="isAuthenticated()" >
-    <div>Olá, <span sec:authentication="name">user</span>. Bem Vindo!</div>
-    <a onclick="document.querySelector('#form-login').submit()" class="text-light" href="#" >logout</a>
-    <form id="form-login" th:action="@{/logout}" method="post"></form>
-  </div>
+ <div class="logo-container mb-3 p-3 d-flex justify-content-between" >
+    <a href="/home"  ><span class="logo text-light " >Mudi</span></a>
 
-  <div sec:authorize="!isAuthenticated()" >
-    <a href="/login" class="text-light" >login</a>
+    <div sec:authorize="isAuthenticated()" >
+      <div>Olá, <span sec:authentication="name">user</span>. Bem Vindo!</div>
+      <a onclick="document.querySelector('#form-login').submit()" class="text-light" href="#" >logout</a>
+      <form id="form-login" th:action="@{/logout}" method="post"></form>
+    </div>
+
+    <div sec:authorize="!isAuthenticated()" >
+      <a href="/login" class="text-light" >login</a>
+    </div>
+ </div>
+
+  <div>
+      <nav class="nav">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/oferta">Ofertas</a>
+    </nav>
   </div>
 
 </div>

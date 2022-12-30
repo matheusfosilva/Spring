@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<head th:replace="~{base::head}"> </head>
+
+<body onLoad="onLoad()">
+    <div th:replace="~{base::logo}"></div>
+    <div class="container" id="ofertas">
+        <div th:replace="~{base::top('Ofertas')} "></div>
+
+        <div class="card mb-3" v-for="pedido in pedidos">
+            <div class="card-header alert-warning ">{{pedido.name}}</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-sm-9 mb-3">
+                        <div class="row mb-2 ">
+                            <div class=" col-12 col-md-5"> Valor: <input /> </div>
+                            <div class=" col-12 col-md-7">Data de entrega:<input /> </span>
+                            </div>
+                        </div>
+                        <div>Produto</div>
+                        <div>
+                            <a v-bind:href="pedido.urlProduct">{{pedido.name}}</a>
+                        </div>
+
+                        <div class="mt-2">Descrição</div>
+                        <div>
+                            <textarea class="form-control">{{pedido.description}}</textarea>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-3 ">
+                        <div>
+                            <img class="img-thumbnail" v-bind:src="pedido.urlImage" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <script>
+        function onLoad() {
+            const { createApp } = Vue
+            createApp({
+                data() {
+                    return {
+                        pedidos: []
+
+                    }} , mounted() {
+                        axios
+                            .get('http://localhost:8080/api/pedidos/aguardando')
+                            .then(response => (this.pedidos = response.data))
+                    }
+
+            }).mount('#ofertas')
+        }
+    </script>
+</body>
+
+</html>
