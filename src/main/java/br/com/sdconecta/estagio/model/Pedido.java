@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import br.com.sdconecta.estagio.model.status.StatusPedido;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -23,6 +24,7 @@ public class Pedido {
     @Enumerated(EnumType.STRING)
     private StatusPedido statusPedido;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private User user;
 
     public User getUser() {
