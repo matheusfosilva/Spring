@@ -15,18 +15,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/pedidos")
-public class OfertaRest {
+public class PedidosRest {
 
     @Autowired
     private PedidoRepository pedidoRepository;
 
-    @GetMapping("{status}")
-    public List<Pedido> getPedidosAguardando(@PathVariable("status") String status){
-        return pedidoRepository.findByStatusPedido(
-                StatusPedido.valueOf( status.toUpperCase()),
-                PageRequest.of(0,5,
-                        Sort.by("id").descending())
-        );
+    @GetMapping("aguardando")
+    public List<Pedido> getPedidosAguardando(){
+        return pedidoRepository.findByStatusPedido(StatusPedido.AGUARDANDO,
+                PageRequest.of(0,5, Sort.by("name").descending()));
     }
 
 }

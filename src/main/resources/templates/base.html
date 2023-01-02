@@ -27,7 +27,7 @@
 
 <div th:fragment="logo">
 
- <div class="logo-container mb-3 p-3 d-flex justify-content-between" >
+ <div class="logo-container mb-1 p-3 d-flex justify-content-between" >
     <a href="/home"  ><span class="logo text-light " >Mudi</span></a>
 
     <div sec:authorize="isAuthenticated()" >
@@ -41,7 +41,7 @@
     </div>
  </div>
 
-  <div>
+  <div sec:authorize="isAuthenticated()" >
       <nav class="nav">
         <a class="nav-link" href="/">Home</a>
         <a class="nav-link" href="/oferta">Ofertas</a>
