@@ -2,29 +2,22 @@ package br.com.sdconecta.estagio.controller;
 
 import br.com.sdconecta.estagio.dto.PedidoDTO;
 import br.com.sdconecta.estagio.model.Pedido;
-import br.com.sdconecta.estagio.model.User;
 import br.com.sdconecta.estagio.repository.PedidoRepository;
 import br.com.sdconecta.estagio.repository.UserRepository;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.naming.Binding;
-import java.io.IOException;
-
 @Controller
 @RequestMapping("pedido")
 public class PedidoController {
 
     @Autowired
-    private PedidoRepository repository;
+    private PedidoRepository pedidoRepository;
     @Autowired
     private UserRepository userRepository;
 
@@ -49,7 +42,7 @@ public class PedidoController {
                         .getName()
         ));
 
-        repository.save(pedido);
+        pedidoRepository.save(pedido);
 
         return "redirect:/home";
     }

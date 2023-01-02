@@ -91,7 +91,7 @@
                                 valor: pedido.price,
                                 dataDeEntrega: pedido.date,
                                 comentario: pedido.comentario
-                            })
+                                })
                             .then(response => pedido.ofertaEnviada = true)
                             .catch(error => {
                                 error.response.data.errors.forEach(error => {
