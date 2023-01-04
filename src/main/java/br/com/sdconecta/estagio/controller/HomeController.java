@@ -22,7 +22,6 @@ public class HomeController {
     private PedidoRepository pedidoRepository;
     private static PageRequest pageRequest = PageRequest.of(0, 5, Sort.by("id").descending());
 
-
     @GetMapping()
     public ModelAndView view(){
         return new ModelAndView("tester/home")

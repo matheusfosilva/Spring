@@ -13,8 +13,11 @@ import java.time.LocalDateTime;
 
 public class AcessInterceptor implements HandlerInterceptor {
 
-    @Autowired
-    private AcessoRepository acessoRepository;
+    private final AcessoRepository acessoRepository ;
+
+    public AcessInterceptor(AcessoRepository acessoRepository) {
+        this.acessoRepository = acessoRepository;
+    }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

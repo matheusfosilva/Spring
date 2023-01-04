@@ -9,6 +9,4 @@ import java.util.List;
 @Repository
 public interface AcessoRepository extends JpaRepository<Acesso,Long> {
 
-    @Override
-    <S extends Acesso> S save(S entity);
 }
